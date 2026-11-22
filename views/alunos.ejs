@@ -1,0 +1,9 @@
+<% if (alunos && alunos.length > 0) { %>
+<% alunos.forEach(mostra => { %>
+<tr>
+<td><%= mostra.id_aluno %></td>
+<td><%= mostra.nome %></td>
+<td><%= mostra.email %></td>
+<td><%= mostra.celular %></td>
+</tr>
+<% }) %>
