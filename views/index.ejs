@@ -6,148 +6,532 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lumber Tycoon 2 - Catálogo de Machados</title>
+    <title>Lumber Tycoon 2 | Axe Collection</title>
 
     <style>
+        :root {
+            --background: #171b19;
+            --surface: #222925;
+            --surface-light: #2b342e;
+            --border: #3b4940;
+            --green: #83a96d;
+            --green-dark: #557b47;
+            --gold: #d8b46b;
+            --text: #f1f1e9;
+            --muted: #a7b0a7;
+            --danger: #d66c62;
+        }
+
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f4f7;
-            color: #333;
-            margin: 0;
-            padding: 30px;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
         }
+
+        button, input, select, textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #202a23;
+            border-bottom: 1px solid var(--border);
+            padding: 22px 5%;
+        }
+
+        .header-content {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: var(--green-dark);
+            font-size: 27px;
+        }
+
+        .brand h1 {
+            font-size: 21px;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header-label {
+            color: var(--gold);
+            border: 1px solid #74623e;
+            padding: 7px 13px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* CONTEÚDO */
 
         .container {
-            max-width: 1200px;
+            max-width: 1250px;
             margin: auto;
+            padding: 35px 20px 60px;
         }
 
-        h1, h2 {
-            color: #294b35;
+        .intro {
+            margin-bottom: 30px;
         }
 
-        .painel {
-            background: white;
-            padding: 22px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        .intro h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
         }
+
+        .intro p {
+            color: var(--muted);
+            max-width: 650px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 23px;
+            background: var(--green);
+            border-radius: 5px;
+        }
+
+        /* PAINÉIS */
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 23px;
+            margin-bottom: 30px;
+        }
+
+        /* FORMULÁRIO */
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
         }
 
-        .campo {
+        .field {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 7px;
         }
 
-        .campo.completo {
+        .field.full {
             grid-column: 1 / -1;
         }
 
+        .field label {
+            font-size: 13px;
+            color: #d5ddd4;
+            font-weight: bold;
+        }
+
         input, select, textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
             width: 100%;
+            background: #19211c;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--green);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #78847a;
         }
 
         textarea {
             resize: vertical;
-            min-height: 75px;
+            min-height: 90px;
         }
 
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .salvar {
-            background: #347a49;
-            color: white;
-        }
-
-        .limpar {
-            background: #ddd;
-            color: #333;
-        }
-
-        .editar {
-            background: #e5a832;
-            color: #222;
-            margin-right: 5px;
-        }
-
-        .excluir {
-            background: #c94b4b;
-            color: white;
-        }
-
-        .pesquisa {
+        .form-actions {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .pesquisa input {
+        .btn {
+            border: none;
+            border-radius: 6px;
+            padding: 11px 17px;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            filter: brightness(1.12);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--green-dark);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #3b4740;
+            color: white;
+        }
+
+        .btn-edit {
+            background: #9a793d;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #984c45;
+            color: white;
+        }
+
+        /* PESQUISA E FILTROS */
+
+        .toolbar {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .results-info strong {
+            color: var(--gold);
+        }
+
+        /* CARDS */
+
+        .axe-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .axe-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .axe-card:hover {
+            border-color: var(--green);
+            transform: translateY(-3px);
+        }
+
+        .axe-visual {
+            min-height: 125px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(135deg, #344538, #202a23);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .axe-symbol {
+            font-size: 62px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,.35));
+        }
+
+        .axe-id {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: #c5d0c3;
+            font-size: 11px;
+            background: rgba(0,0,0,.25);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .axe-content {
+            padding: 17px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .axe-name {
+            font-size: 19px;
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            display: inline-block;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #354439;
+            color: #c9dfc3;
+        }
+
+        .tag-rarity {
+            background: #443c2b;
+            color: var(--gold);
+        }
+
+        .axe-details {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            border-top: 1px solid var(--border);
+            padding-top: 13px;
+            margin-top: auto;
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .detail span:first-child {
+            color: var(--muted);
+        }
+
+        .detail span:last-child {
+            text-align: right;
+            color: #e7e9df;
+            overflow-wrap: anywhere;
+        }
+
+        .axe-description {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 12px;
+            min-height: 35px;
+            overflow-wrap: anywhere;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 9px 5px;
+            font-size: 12px;
+        }
+
+        /* ESTADO VAZIO */
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state h3 {
+            color: var(--text);
+            margin-bottom: 7px;
+        }
+
+        /* NOTIFICAÇÕES */
+
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: min(370px, calc(100% - 40px));
+        }
+
+        .toast {
+            background: #29352d;
+            border: 1px solid #54775b;
+            border-left: 5px solid var(--green);
+            border-radius: 7px;
+            padding: 15px 17px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: toast-in .25s ease-out;
+        }
+
+        .toast.error {
+            background: #3b2928;
+            border-color: #89534d;
+            border-left-color: var(--danger);
+        }
+
+        .toast-icon {
+            font-size: 19px;
+        }
+
+        .toast-content {
             flex: 1;
         }
 
-        .tabela-container {
-            overflow-x: auto;
+        .toast-content strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            min-width: 900px;
+        .toast-content p {
+            color: #d3dbd2;
+            font-size: 12px;
+            overflow-wrap: anywhere;
         }
 
-        th, td {
-            border-bottom: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
+        .toast-close {
+            background: transparent;
+            color: #c5cfc5;
+            border: none;
+            font-size: 18px;
         }
 
-        th {
-            background: #e8efe9;
-            color: #294b35;
+        @keyframes toast-in {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        tr:hover {
-            background: #f7f9f7;
+        /* RODAPÉ */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 22px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
         }
 
-        .mensagem {
-            margin-top: 12px;
-            font-weight: bold;
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 900px) {
+            .axe-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
-        @media (max-width: 650px) {
-            body {
-                padding: 15px;
+        @media (max-width: 600px) {
+            header {
+                padding: 16px;
             }
 
-            .form-grid {
+            .header-content {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .container {
+                padding: 25px 14px 40px;
+            }
+
+            .intro h2 {
+                font-size: 24px;
+            }
+
+            .form-grid,
+            .toolbar,
+            .axe-grid {
                 grid-template-columns: 1fr;
             }
 
-            .campo.completo {
+            .field.full {
                 grid-column: auto;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+
+            .results-info {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
             }
         }
     </style>
@@ -155,448 +539,776 @@
 
 <body>
 
-<div class="container">
+    <div id="toast-container"></div>
 
-    <h1>Lumber Tycoon 2</h1>
-    <p>Catálogo e gerenciamento de machados.</p>
+    <header>
+        <div class="header-content">
 
-    <!-- FORMULÁRIO -->
-    <section class="painel">
+            <div class="brand">
+                <div class="brand-icon">🪓</div>
 
-        <h2 id="titulo-formulario">Cadastrar Machado</h2>
+                <div>
+                    <h1>LUMBER TYCOON 2</h1>
+                    <p>Axe Collection</p>
+                </div>
+            </div>
 
-        <form id="form-machado">
+            <div class="header-label">
+                MACHADO DATABASE
+            </div>
 
-            <input type="hidden" id="id_machado">
+        </div>
+    </header>
 
-            <div class="form-grid">
+    <main class="container">
 
-                <div class="campo">
-                    <label for="nome_machado">Nome do Machado *</label>
-                    <input type="text" id="nome_machado" required>
+        <section class="intro">
+            <h2>Catálogo de Machados</h2>
+            <p>
+                Explore, organize e gerencie os machados disponíveis
+                no universo de Lumber Tycoon 2.
+            </p>
+        </section>
+
+        <!-- FORMULÁRIO -->
+
+        <section class="panel">
+
+            <h2 class="section-title" id="titulo-formulario">
+                Cadastrar Machado
+            </h2>
+
+            <form id="form-machado">
+
+                <input type="hidden" id="id_machado">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="nome_machado">Nome do Machado *</label>
+                        <input
+                            type="text"
+                            id="nome_machado"
+                            placeholder="Ex.: Rukiryaxe"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="preco">Preço</label>
+                        <input
+                            type="number"
+                            id="preco"
+                            min="0"
+                            step="0.01"
+                            placeholder="Ex.: 7720"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="id_categoria">Categoria *</label>
+                        <select id="id_categoria" required>
+                            <option value="">Carregando categorias...</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="id_raridade">Raridade *</label>
+                        <select id="id_raridade" required>
+                            <option value="">Carregando raridades...</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="local_obtencao">Local de obtenção</label>
+                        <input
+                            type="text"
+                            id="local_obtencao"
+                            placeholder="Ex.: Volcano"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="madeira_eficiencia">Madeira / Eficiência</label>
+                        <input
+                            type="text"
+                            id="madeira_eficiencia"
+                            placeholder="Ex.: Phantom Wood"
+                        >
+                    </div>
+
+                    <div class="field full">
+                        <label for="descricao">Descrição</label>
+                        <textarea
+                            id="descricao"
+                            placeholder="Informações adicionais sobre o machado..."
+                        ></textarea>
+                    </div>
+
                 </div>
 
-                <div class="campo">
-                    <label for="preco">Preço</label>
-                    <input type="number" id="preco" min="0" step="0.01">
+                <div class="form-actions">
+
+                    <button type="submit" class="btn btn-primary">
+                        Salvar Machado
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        onclick="limparFormulario()"
+                    >
+                        Limpar formulário
+                    </button>
+
                 </div>
 
-                <div class="campo">
-                    <label for="id_categoria">Categoria *</label>
-                    <select id="id_categoria" required>
-                        <option value="">Carregando categorias...</option>
-                    </select>
-                </div>
+            </form>
 
-                <div class="campo">
-                    <label for="id_raridade">Raridade *</label>
-                    <select id="id_raridade" required>
-                        <option value="">Carregando raridades...</option>
-                    </select>
-                </div>
+        </section>
 
-                <div class="campo">
-                    <label for="local_obtencao">Local de obtenção</label>
-                    <input type="text" id="local_obtencao">
-                </div>
+        <!-- CATÁLOGO -->
 
-                <div class="campo">
-                    <label for="madeira_eficiencia">Madeira / Eficiência</label>
-                    <input type="text" id="madeira_eficiencia">
-                </div>
+        <section>
 
-                <div class="campo completo">
-                    <label for="descricao">Descrição</label>
-                    <textarea id="descricao"></textarea>
+            <h2 class="section-title">
+                Coleção de Machados
+            </h2>
+
+            <div class="toolbar">
+
+                <input
+                    type="text"
+                    id="pesquisa"
+                    placeholder="Pesquisar machado..."
+                >
+
+                <select id="filtro-categoria">
+                    <option value="">Todas as categorias</option>
+                </select>
+
+            </div>
+
+            <div class="results-info">
+                <span id="contador">Carregando machados...</span>
+                <span>Catálogo atualizado automaticamente</span>
+            </div>
+
+            <div class="axe-grid" id="lista-machados">
+
+                <div class="empty-state">
+                    <div class="empty-icon">🪓</div>
+                    <h3>Carregando coleção...</h3>
+                    <p>Aguarde enquanto buscamos os machados.</p>
                 </div>
 
             </div>
 
-            <br>
+        </section>
 
-            <button type="submit" class="salvar">Salvar Machado</button>
-            <button type="button" class="limpar" onclick="limparFormulario()">
-                Limpar
-            </button>
+    </main>
 
-            <div id="mensagem" class="mensagem"></div>
+    <footer>
+        Lumber Tycoon 2 — Axe Collection Database
+    </footer>
 
-        </form>
+    <script>
 
-    </section>
+        let listaMachados = [];
 
-    <!-- LISTAGEM -->
-    <section class="painel">
+        // ======================================
+        // NOTIFICAÇÕES
+        // ======================================
 
-        <h2>Machados cadastrados</h2>
+        function notificar(titulo, mensagem, tipo = 'success') {
 
-        <div class="pesquisa">
-            <input
-                type="text"
-                id="pesquisa"
-                placeholder="Pesquisar por nome, categoria, raridade ou local..."
-            >
-            <button type="button" class="limpar" onclick="limparPesquisa()">
-                Limpar pesquisa
-            </button>
-        </div>
+            const container = document.getElementById('toast-container');
 
-        <p id="contador">Carregando machados...</p>
+            const toast = document.createElement('div');
 
-        <div class="tabela-container">
+            toast.className = `toast ${tipo === 'error' ? 'error' : ''}`;
 
-            <table>
+            const icone = tipo === 'error' ? '⚠️' : '✓';
 
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Machado</th>
-                        <th>Categoria</th>
-                        <th>Raridade</th>
-                        <th>Preço</th>
-                        <th>Local</th>
-                        <th>Madeira / Eficiência</th>
-                        <th>Descrição</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
+            const iconeElemento = document.createElement('span');
+            iconeElemento.className = 'toast-icon';
+            iconeElemento.textContent = icone;
 
-                <tbody id="tabela-machados">
-                    <tr>
-                        <td colspan="9">Carregando...</td>
-                    </tr>
-                </tbody>
+            const conteudo = document.createElement('div');
+            conteudo.className = 'toast-content';
 
-            </table>
+            const tituloElemento = document.createElement('strong');
+            tituloElemento.textContent = titulo;
 
-        </div>
+            const mensagemElemento = document.createElement('p');
+            mensagemElemento.textContent = mensagem;
 
-    </section>
+            conteudo.appendChild(tituloElemento);
+            conteudo.appendChild(mensagemElemento);
 
-</div>
+            const fechar = document.createElement('button');
+            fechar.className = 'toast-close';
+            fechar.type = 'button';
+            fechar.textContent = '×';
 
-<script>
-
-    let listaMachados = [];
-
-    // Escapar conteúdo antes de inserir no HTML
-    function escaparHTML(valor) {
-        return String(valor ?? '').replace(/[&<>"']/g, function (caractere) {
-            const entidades = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
+            fechar.onclick = function () {
+                toast.remove();
             };
 
-            return entidades[caractere];
-        });
-    }
+            toast.appendChild(iconeElemento);
+            toast.appendChild(conteudo);
+            toast.appendChild(fechar);
 
-    // Requisição padrão para as APIs
-    async function requisicao(url, opcoes = {}) {
+            container.appendChild(toast);
 
-        const resposta = await fetch(url, opcoes);
-
-        const dados = await resposta.json().catch(() => ({}));
-
-        if (!resposta.ok) {
-            throw new Error(dados.detalhe || dados.erro || 'Erro na requisição.');
+            setTimeout(() => {
+                toast.remove();
+            }, 4500);
         }
 
-        return dados;
-    }
+        // ======================================
+        // REQUISIÇÕES
+        // ======================================
 
-    // Carregar categorias
-    async function carregarCategorias() {
+        async function requisicao(url, opcoes = {}) {
 
-        const categorias = await requisicao('/api/categorias');
+            const resposta = await fetch(url, opcoes);
 
-        const select = document.getElementById('id_categoria');
+            const dados = await resposta.json().catch(() => ({}));
 
-        select.innerHTML = '<option value="">Selecione uma categoria</option>';
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detalhe ||
+                    dados.erro ||
+                    'Erro na requisição.'
+                );
+            }
 
-        categorias.forEach(categoria => {
-
-            select.innerHTML += `
-                <option value="${categoria.id_categoria}">
-                    ${escaparHTML(categoria.nome_categoria)}
-                </option>
-            `;
-
-        });
-    }
-
-    // Carregar raridades
-    async function carregarRaridades() {
-
-        const raridades = await requisicao('/api/raridades');
-
-        const select = document.getElementById('id_raridade');
-
-        select.innerHTML = '<option value="">Selecione uma raridade</option>';
-
-        raridades.forEach(raridade => {
-
-            select.innerHTML += `
-                <option value="${raridade.id_raridade}">
-                    ${escaparHTML(raridade.nome_raridade)}
-                </option>
-            `;
-
-        });
-    }
-
-    // Buscar machados
-    async function carregarMachados() {
-
-        const tabela = document.getElementById('tabela-machados');
-
-        try {
-
-            tabela.innerHTML = '<tr><td colspan="9">Carregando...</td></tr>';
-
-            listaMachados = await requisicao('/api/machados');
-
-            renderizarMachados(listaMachados);
-
-        } catch (erro) {
-
-            console.error('Erro ao buscar machados:', erro);
-
-            tabela.innerHTML = `
-                <tr>
-                    <td colspan="9">
-                        Erro ao buscar machados: ${escaparHTML(erro.message)}
-                    </td>
-                </tr>
-            `;
-
-            document.getElementById('contador').textContent =
-                'Não foi possível carregar os machados.';
-        }
-    }
-
-    // Exibir machados na tabela
-    function renderizarMachados(machados) {
-
-        const tabela = document.getElementById('tabela-machados');
-
-        document.getElementById('contador').textContent =
-            `${machados.length} machado(s) encontrado(s).`;
-
-        if (machados.length === 0) {
-
-            tabela.innerHTML = `
-                <tr>
-                    <td colspan="9">Nenhum machado encontrado.</td>
-                </tr>
-            `;
-
-            return;
+            return dados;
         }
 
-        tabela.innerHTML = machados.map(m => {
+        // ======================================
+        // ESCAPAR HTML
+        // ======================================
 
-            const preco = m.preco == null
-                ? 'Não informado'
-                : Number(m.preco).toFixed(2);
+        function escaparHTML(valor) {
 
-            return `
-                <tr>
-                    <td>${m.id_machado}</td>
-                    <td>${escaparHTML(m.nome_machado)}</td>
-                    <td>${escaparHTML(m.nome_categoria || 'Não informado')}</td>
-                    <td>${escaparHTML(m.nome_raridade || 'Não informado')}</td>
-                    <td>${preco}</td>
-                    <td>${escaparHTML(m.local_obtencao)}</td>
-                    <td>${escaparHTML(m.madeira_eficiencia)}</td>
-                    <td>${escaparHTML(m.descricao)}</td>
+            return String(valor ?? '').replace(/[&<>"']/g, function (caractere) {
 
-                    <td>
-                        <button
-                            class="editar"
-                            onclick="editarMachado(${m.id_machado})">
-                            Editar
-                        </button>
+                const entidades = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
 
-                        <button
-                            class="excluir"
-                            onclick="deletarMachado(${m.id_machado})">
-                            Excluir
-                        </button>
-                    </td>
-                </tr>
-            `;
+                return entidades[caractere];
 
-        }).join('');
-    }
-
-    // Pesquisar machados
-    document.getElementById('pesquisa').addEventListener('input', function () {
-
-        const termo = this.value.toLowerCase().trim();
-
-        const filtrados = listaMachados.filter(m => {
-
-            const texto = [
-                m.nome_machado,
-                m.nome_categoria,
-                m.nome_raridade,
-                m.local_obtencao,
-                m.madeira_eficiencia,
-                m.descricao
-            ].join(' ').toLowerCase();
-
-            return texto.includes(termo);
-
-        });
-
-        renderizarMachados(filtrados);
-    });
-
-    // Limpar pesquisa
-    function limparPesquisa() {
-
-        document.getElementById('pesquisa').value = '';
-
-        renderizarMachados(listaMachados);
-    }
-
-    // Limpar formulário
-    function limparFormulario() {
-
-        document.getElementById('form-machado').reset();
-
-        document.getElementById('id_machado').value = '';
-
-        document.getElementById('titulo-formulario').textContent =
-            'Cadastrar Machado';
-
-        document.getElementById('mensagem').textContent = '';
-    }
-
-    // Editar machado
-    function editarMachado(id) {
-
-        const machado = listaMachados.find(m => m.id_machado === id);
-
-        if (!machado) {
-            alert('Machado não encontrado.');
-            return;
+            });
         }
 
-        document.getElementById('id_machado').value = machado.id_machado;
-        document.getElementById('nome_machado').value = machado.nome_machado;
-        document.getElementById('id_categoria').value = machado.id_categoria;
-        document.getElementById('id_raridade').value = machado.id_raridade;
-        document.getElementById('preco').value = machado.preco ?? '';
-        document.getElementById('local_obtencao').value = machado.local_obtencao ?? '';
-        document.getElementById('madeira_eficiencia').value = machado.madeira_eficiencia ?? '';
-        document.getElementById('descricao').value = machado.descricao ?? '';
+        // ======================================
+        // CARREGAR CATEGORIAS
+        // ======================================
 
-        document.getElementById('titulo-formulario').textContent =
-            'Editar Machado';
+        async function carregarCategorias() {
 
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
+            const categorias = await requisicao('/api/categorias');
 
-    // Excluir machado
-    async function deletarMachado(id) {
+            const select = document.getElementById('id_categoria');
+            const filtro = document.getElementById('filtro-categoria');
 
-        if (!confirm('Deseja realmente excluir este machado?')) {
-            return;
-        }
+            select.innerHTML =
+                '<option value="">Selecione uma categoria</option>';
 
-        try {
+            filtro.innerHTML =
+                '<option value="">Todas as categorias</option>';
 
-            const resultado = await requisicao(`/api/machados/${id}`, {
-                method: 'DELETE'
+            categorias.forEach(categoria => {
+
+                const option = document.createElement('option');
+
+                option.value = categoria.id_categoria;
+                option.textContent = categoria.nome_categoria;
+
+                select.appendChild(option);
+
+                const optionFiltro = document.createElement('option');
+
+                optionFiltro.value = categoria.nome_categoria;
+                optionFiltro.textContent = categoria.nome_categoria;
+
+                filtro.appendChild(optionFiltro);
+
             });
 
-            alert(resultado.mensagem);
+        }
 
-            await carregarMachados();
+        // ======================================
+        // CARREGAR RARIDADES
+        // ======================================
 
-        } catch (erro) {
+        async function carregarRaridades() {
 
-            alert('Erro ao excluir: ' + erro.message);
+            const raridades = await requisicao('/api/raridades');
+
+            const select = document.getElementById('id_raridade');
+
+            select.innerHTML =
+                '<option value="">Selecione uma raridade</option>';
+
+            raridades.forEach(raridade => {
+
+                const option = document.createElement('option');
+
+                option.value = raridade.id_raridade;
+                option.textContent = raridade.nome_raridade;
+
+                select.appendChild(option);
+
+            });
 
         }
-    }
 
-    // Cadastrar ou atualizar machado
-    document.getElementById('form-machado').addEventListener('submit', async function (evento) {
+        // ======================================
+        // CARREGAR MACHADOS
+        // ======================================
 
-        evento.preventDefault();
+        async function carregarMachados() {
 
-        const id = document.getElementById('id_machado').value;
+            const lista = document.getElementById('lista-machados');
 
-        const dados = {
-            nome_machado: document.getElementById('nome_machado').value.trim(),
-            id_categoria: document.getElementById('id_categoria').value,
-            id_raridade: document.getElementById('id_raridade').value,
-            preco: document.getElementById('preco').value,
-            local_obtencao: document.getElementById('local_obtencao').value.trim(),
-            madeira_eficiencia: document.getElementById('madeira_eficiencia').value.trim(),
-            descricao: document.getElementById('descricao').value.trim()
-        };
+            try {
 
-        try {
+                lista.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🪓</div>
+                        <h3>Carregando coleção...</h3>
+                    </div>
+                `;
 
-            const resultado = await requisicao(
-                id ? `/api/machados/${id}` : '/api/machados',
-                {
-                    method: id ? 'PUT' : 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(dados)
-                }
+                listaMachados = await requisicao('/api/machados');
+
+                renderizarMachados(listaMachados);
+
+            } catch (erro) {
+
+                console.error('Erro ao buscar machados:', erro);
+
+                lista.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <h3>Erro ao carregar catálogo</h3>
+                        <p>${escaparHTML(erro.message)}</p>
+                    </div>
+                `;
+
+                document.getElementById('contador').textContent =
+                    'Não foi possível carregar os machados.';
+
+                notificar('Erro ao carregar', erro.message, 'error');
+
+            }
+
+        }
+
+        // ======================================
+        // RENDERIZAR MACHADOS
+        // ======================================
+
+        function renderizarMachados(machados) {
+
+            const lista = document.getElementById('lista-machados');
+
+            document.getElementById('contador').innerHTML =
+                `<strong>${machados.length}</strong> machado(s) encontrado(s).`;
+
+            if (machados.length === 0) {
+
+                lista.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <h3>Nenhum machado encontrado</h3>
+                        <p>Tente alterar sua pesquisa ou os filtros.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            lista.innerHTML = machados.map(m => {
+
+                const preco = m.preco == null
+                    ? 'Não informado'
+                    : Number(m.preco).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+
+                return `
+                    <article class="axe-card">
+
+                        <div class="axe-visual">
+
+                            <span class="axe-symbol">🪓</span>
+
+                            <span class="axe-id">
+                                #${m.id_machado}
+                            </span>
+
+                        </div>
+
+                        <div class="axe-content">
+
+                            <h3 class="axe-name">
+                                ${escaparHTML(m.nome_machado)}
+                            </h3>
+
+                            <div class="tags">
+
+                                <span class="tag">
+                                    ${escaparHTML(m.nome_categoria || 'Sem categoria')}
+                                </span>
+
+                                <span class="tag tag-rarity">
+                                    ${escaparHTML(m.nome_raridade || 'Sem raridade')}
+                                </span>
+
+                            </div>
+
+                            <div class="axe-details">
+
+                                <div class="detail">
+                                    <span>Preço</span>
+                                    <span>${preco}</span>
+                                </div>
+
+                                <div class="detail">
+                                    <span>Obtenção</span>
+                                    <span>${escaparHTML(m.local_obtencao || 'Não informado')}</span>
+                                </div>
+
+                                <div class="detail">
+                                    <span>Madeira</span>
+                                    <span>${escaparHTML(m.madeira_eficiencia || 'Não informado')}</span>
+                                </div>
+
+                            </div>
+
+                            <p class="axe-description">
+                                ${escaparHTML(m.descricao || 'Nenhuma descrição cadastrada.')}
+                            </p>
+
+                            <div class="card-actions">
+
+                                <button
+                                    class="btn btn-edit"
+                                    onclick="editarMachado(${m.id_machado})"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="btn btn-delete"
+                                    onclick="deletarMachado(${m.id_machado})"
+                                >
+                                    Excluir
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }).join('');
+
+        }
+
+        // ======================================
+        // PESQUISA E FILTROS
+        // ======================================
+
+        function aplicarFiltros() {
+
+            const termo = document
+                .getElementById('pesquisa')
+                .value
+                .toLowerCase()
+                .trim();
+
+            const categoria = document
+                .getElementById('filtro-categoria')
+                .value;
+
+            const filtrados = listaMachados.filter(m => {
+
+                const texto = [
+                    m.nome_machado,
+                    m.nome_categoria,
+                    m.nome_raridade,
+                    m.local_obtencao,
+                    m.madeira_eficiencia,
+                    m.descricao
+                ].join(' ').toLowerCase();
+
+                const correspondePesquisa = texto.includes(termo);
+
+                const correspondeCategoria =
+                    !categoria || m.nome_categoria === categoria;
+
+                return correspondePesquisa && correspondeCategoria;
+
+            });
+
+            renderizarMachados(filtrados);
+
+        }
+
+        document.getElementById('pesquisa')
+            .addEventListener('input', aplicarFiltros);
+
+        document.getElementById('filtro-categoria')
+            .addEventListener('change', aplicarFiltros);
+
+        // ======================================
+        // LIMPAR FORMULÁRIO
+        // ======================================
+
+        function limparFormulario() {
+
+            document.getElementById('form-machado').reset();
+
+            document.getElementById('id_machado').value = '';
+
+            document.getElementById('titulo-formulario').textContent =
+                'Cadastrar Machado';
+
+        }
+
+        // ======================================
+        // EDITAR MACHADO
+        // ======================================
+
+        function editarMachado(id) {
+
+            const machado = listaMachados.find(
+                m => Number(m.id_machado) === Number(id)
             );
 
-            document.getElementById('mensagem').textContent =
-                resultado.mensagem;
+            if (!machado) {
 
-            limparFormulario();
-            limparPesquisa();
+                notificar(
+                    'Machado não encontrado',
+                    'Não foi possível localizar este registro.',
+                    'error'
+                );
 
-            await carregarMachados();
+                return;
+            }
 
-        } catch (erro) {
+            document.getElementById('id_machado').value =
+                machado.id_machado;
 
-            document.getElementById('mensagem').textContent =
-                'Erro: ' + erro.message;
+            document.getElementById('nome_machado').value =
+                machado.nome_machado;
 
-            console.error('Erro ao salvar machado:', erro);
+            document.getElementById('id_categoria').value =
+                machado.id_categoria;
+
+            document.getElementById('id_raridade').value =
+                machado.id_raridade;
+
+            document.getElementById('preco').value =
+                machado.preco ?? '';
+
+            document.getElementById('local_obtencao').value =
+                machado.local_obtencao ?? '';
+
+            document.getElementById('madeira_eficiencia').value =
+                machado.madeira_eficiencia ?? '';
+
+            document.getElementById('descricao').value =
+                machado.descricao ?? '';
+
+            document.getElementById('titulo-formulario').textContent =
+                'Editar Machado';
+
+            document.getElementById('form-machado').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
         }
-    });
 
-    // Inicialização
-    async function iniciarAplicacao() {
+        // ======================================
+        // EXCLUIR MACHADO
+        // ======================================
 
-        try {
+        async function deletarMachado(id) {
 
-            await carregarCategorias();
-            await carregarRaridades();
-            await carregarMachados();
+            const machado = listaMachados.find(
+                m => Number(m.id_machado) === Number(id)
+            );
 
-        } catch (erro) {
+            if (!machado) return;
 
-            console.error('Erro ao inicializar aplicação:', erro);
+            if (!confirm(`Deseja realmente excluir ${machado.nome_machado}?`)) {
+                return;
+            }
 
-            document.getElementById('contador').textContent =
-                'Erro ao carregar os dados iniciais: ' + erro.message;
+            try {
+
+                const resultado = await requisicao(
+                    `/api/machados/${id}`,
+                    {
+                        method: 'DELETE'
+                    }
+                );
+
+                notificar(
+                    'Machado excluído',
+                    `${machado.nome_machado} excluído com sucesso!`
+                );
+
+                await carregarMachados();
+
+            } catch (erro) {
+
+                console.error('Erro ao excluir:', erro);
+
+                notificar(
+                    'Erro ao excluir',
+                    erro.message,
+                    'error'
+                );
+
+            }
+
         }
-    }
 
-    iniciarAplicacao();
+        // ======================================
+        // CADASTRAR E ATUALIZAR
+        // ======================================
 
-</script>
+        document.getElementById('form-machado')
+            .addEventListener('submit', async function (evento) {
+
+                evento.preventDefault();
+
+                const id = document.getElementById('id_machado').value;
+
+                const nome = document
+                    .getElementById('nome_machado')
+                    .value
+                    .trim();
+
+                const dados = {
+
+                    nome_machado: nome,
+
+                    id_categoria:
+                        document.getElementById('id_categoria').value,
+
+                    id_raridade:
+                        document.getElementById('id_raridade').value,
+
+                    preco:
+                        document.getElementById('preco').value,
+
+                    local_obtencao:
+                        document.getElementById('local_obtencao').value.trim(),
+
+                    madeira_eficiencia:
+                        document.getElementById('madeira_eficiencia').value.trim(),
+
+                    descricao:
+                        document.getElementById('descricao').value.trim()
+
+                };
+
+                try {
+
+                    const resultado = await requisicao(
+
+                        id
+                            ? `/api/machados/${id}`
+                            : '/api/machados',
+
+                        {
+
+                            method: id ? 'PUT' : 'POST',
+
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+
+                            body: JSON.stringify(dados)
+
+                        }
+
+                    );
+
+                    const titulo = id
+                        ? 'Machado atualizado'
+                        : 'Machado cadastrado';
+
+                    notificar(
+                        titulo,
+                        `${nome} ${id ? 'alterado' : 'cadastrado'} com sucesso!`
+                    );
+
+                    limparFormulario();
+
+                    await carregarMachados();
+
+                } catch (erro) {
+
+                    console.error('Erro ao salvar:', erro);
+
+                    notificar(
+                        'Erro ao salvar machado',
+                        erro.message,
+                        'error'
+                    );
+
+                }
+
+            });
+
+        // ======================================
+        // INICIALIZAÇÃO
+        // ======================================
+
+        async function iniciarAplicacao() {
+
+            try {
+
+                await carregarCategorias();
+
+                await carregarRaridades();
+
+                await carregarMachados();
+
+            } catch (erro) {
+
+                console.error('Erro ao inicializar aplicação:', erro);
+
+                notificar(
+                    'Erro ao iniciar catálogo',
+                    erro.message,
+                    'error'
+                );
+
+            }
+
+        }
+
+        iniciarAplicacao();
+
+    </script>
 
 </body>
 </html>
