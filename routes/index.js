@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+/* Página inicial */
+router.get('/', function(req, res) {
+    res.render('index', {
+        title: 'Lumber Tycoon 2 - Catálogo de Machados'
+    });
 });
 
 module.exports = router;

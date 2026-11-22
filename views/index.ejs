@@ -1,261 +1,602 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <title>Bestiário - Bloodborne</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lumber Tycoon 2 - Catálogo de Machados</title>
 
     <style>
-      body { font-family: Arial, sans-serif; margin: 40px; }
-      table { border-collapse: collapse; width: 100%; }
-      th, td { border: 3px solid #ccc; padding: 10px; text-align: center; }
-      th { background: #f0f0f0; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            color: #333;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #294b35;
+        }
+
+        .painel {
+            background: white;
+            padding: 22px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .campo.completo {
+            grid-column: 1 / -1;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 75px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .salvar {
+            background: #347a49;
+            color: white;
+        }
+
+        .limpar {
+            background: #ddd;
+            color: #333;
+        }
+
+        .editar {
+            background: #e5a832;
+            color: #222;
+            margin-right: 5px;
+        }
+
+        .excluir {
+            background: #c94b4b;
+            color: white;
+        }
+
+        .pesquisa {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .pesquisa input {
+            flex: 1;
+        }
+
+        .tabela-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 900px;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #e8efe9;
+            color: #294b35;
+        }
+
+        tr:hover {
+            background: #f7f9f7;
+        }
+
+        .mensagem {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .campo.completo {
+                grid-column: auto;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
 
-    <div id="mensagem"></div>
+<body>
 
-    <h2 id="titulo-form">Nova criatura</h2>
+<div class="container">
 
-    <form id="form-criatura">
-      <input type="hidden" id="id_criatura">
+    <h1>Lumber Tycoon 2</h1>
+    <p>Catálogo e gerenciamento de machados.</p>
 
-      <label>Nome
-        <input type="text" id="nome" required>
-      </label>
+    <!-- FORMULÁRIO -->
+    <section class="painel">
 
-      <label>Localização
-        <input type="text" id="localizacao" required>
-      </label>
+        <h2 id="titulo-formulario">Cadastrar Machado</h2>
 
-      <label>Ecos
-        <input type="number" id="ecos" required>
-      </label>
+        <form id="form-machado">
 
-      <label>Fraqueza
-        <select id="id_fraqueza" required>
-          <option value="">Selecione a fraqueza</option>
-          <option value="1">Físico</option>
-          <option value="2">Cortante</option>
-          <option value="3">Arcano</option>
-          <option value="4">Fogo</option>
-          <option value="5">Elétrico</option>
-        </select>
-      </label>
+            <input type="hidden" id="id_machado">
 
-      <label>Status
-        <select id="id_status" required>
-          <option value="">Selecione o status</option>
-          <option value="1">Derrotado(a)</option>
-          <option value="2">Não Derrotado(a)</option>
-        </select>
-      </label>
+            <div class="form-grid">
 
-      <div class="botoes">
-        <button type="submit" id="btn-salvar">Salvar</button>
-      </div>
-    </form>
+                <div class="campo">
+                    <label for="nome_machado">Nome do Machado *</label>
+                    <input type="text" id="nome_machado" required>
+                </div>
 
-    <h2>Pesquisar registro</h2>
+                <div class="campo">
+                    <label for="preco">Preço</label>
+                    <input type="number" id="preco" min="0" step="0.01">
+                </div>
 
-    <form id="form-pesquisa">
-      <label>
-        Nome ou localização
-        <input
-          type="text"
-          id="pesquisa"
-          placeholder="Pesquisar criatura..."
-        >
-      </label>
+                <div class="campo">
+                    <label for="id_categoria">Categoria *</label>
+                    <select id="id_categoria" required>
+                        <option value="">Carregando categorias...</option>
+                    </select>
+                </div>
 
-      <button type="submit">Pesquisar</button>
+                <div class="campo">
+                    <label for="id_raridade">Raridade *</label>
+                    <select id="id_raridade" required>
+                        <option value="">Carregando raridades...</option>
+                    </select>
+                </div>
 
-      <button
-        type="button"
-        onclick="limparPesquisa()"
-      >
-        Limpar
-      </button>
-    </form>
+                <div class="campo">
+                    <label for="local_obtencao">Local de obtenção</label>
+                    <input type="text" id="local_obtencao">
+                </div>
 
-    <h1>Bestiário de Bloodborne</h1>
+                <div class="campo">
+                    <label for="madeira_eficiencia">Madeira / Eficiência</label>
+                    <input type="text" id="madeira_eficiencia">
+                </div>
 
-    <p id="contador">0 registro(s)</p>
+                <div class="campo completo">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao"></textarea>
+                </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Localização</th>
-          <th>Ecos</th>
-          <th>Fraqueza</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
+            </div>
 
-      <tbody id="tabela-criaturas"></tbody>
-    </table>
+            <br>
 
-    <script>
+            <button type="submit" class="salvar">Salvar Machado</button>
+            <button type="button" class="limpar" onclick="limparFormulario()">
+                Limpar
+            </button>
 
-      let listaCriaturas = [];
+            <div id="mensagem" class="mensagem"></div>
 
-      async function carregarCriaturas() {
-        const tbody = document.getElementById('tabela-criaturas');
+        </form>
+
+    </section>
+
+    <!-- LISTAGEM -->
+    <section class="painel">
+
+        <h2>Machados cadastrados</h2>
+
+        <div class="pesquisa">
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="Pesquisar por nome, categoria, raridade ou local..."
+            >
+            <button type="button" class="limpar" onclick="limparPesquisa()">
+                Limpar pesquisa
+            </button>
+        </div>
+
+        <p id="contador">Carregando machados...</p>
+
+        <div class="tabela-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Machado</th>
+                        <th>Categoria</th>
+                        <th>Raridade</th>
+                        <th>Preço</th>
+                        <th>Local</th>
+                        <th>Madeira / Eficiência</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabela-machados">
+                    <tr>
+                        <td colspan="9">Carregando...</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+    let listaMachados = [];
+
+    // Escapar conteúdo antes de inserir no HTML
+    function escaparHTML(valor) {
+        return String(valor ?? '').replace(/[&<>"']/g, function (caractere) {
+            const entidades = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+
+            return entidades[caractere];
+        });
+    }
+
+    // Requisição padrão para as APIs
+    async function requisicao(url, opcoes = {}) {
+
+        const resposta = await fetch(url, opcoes);
+
+        const dados = await resposta.json().catch(() => ({}));
+
+        if (!resposta.ok) {
+            throw new Error(dados.detalhe || dados.erro || 'Erro na requisição.');
+        }
+
+        return dados;
+    }
+
+    // Carregar categorias
+    async function carregarCategorias() {
+
+        const categorias = await requisicao('/api/categorias');
+
+        const select = document.getElementById('id_categoria');
+
+        select.innerHTML = '<option value="">Selecione uma categoria</option>';
+
+        categorias.forEach(categoria => {
+
+            select.innerHTML += `
+                <option value="${categoria.id_categoria}">
+                    ${escaparHTML(categoria.nome_categoria)}
+                </option>
+            `;
+
+        });
+    }
+
+    // Carregar raridades
+    async function carregarRaridades() {
+
+        const raridades = await requisicao('/api/raridades');
+
+        const select = document.getElementById('id_raridade');
+
+        select.innerHTML = '<option value="">Selecione uma raridade</option>';
+
+        raridades.forEach(raridade => {
+
+            select.innerHTML += `
+                <option value="${raridade.id_raridade}">
+                    ${escaparHTML(raridade.nome_raridade)}
+                </option>
+            `;
+
+        });
+    }
+
+    // Buscar machados
+    async function carregarMachados() {
+
+        const tabela = document.getElementById('tabela-machados');
 
         try {
-          const resposta = await fetch('/api/bestiario');
-          const criaturas = await resposta.json();
 
-          if (!resposta.ok) {
-            throw new Error(criaturas.erro);
-          }
+            tabela.innerHTML = '<tr><td colspan="9">Carregando...</td></tr>';
 
-          listaCriaturas = criaturas;
+            listaMachados = await requisicao('/api/machados');
 
-          renderizarCriaturas(listaCriaturas);
+            renderizarMachados(listaMachados);
 
         } catch (erro) {
-          tbody.innerHTML = `<tr><td colspan="7">${erro.message}</td></tr>`;
-          document.getElementById('contador').textContent = '0 registro(s)';
+
+            console.error('Erro ao buscar machados:', erro);
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="9">
+                        Erro ao buscar machados: ${escaparHTML(erro.message)}
+                    </td>
+                </tr>
+            `;
+
+            document.getElementById('contador').textContent =
+                'Não foi possível carregar os machados.';
         }
-      }
+    }
 
-      function renderizarCriaturas(criaturas) {
-        const tbody = document.getElementById('tabela-criaturas');
-        const contador = document.getElementById('contador');
+    // Exibir machados na tabela
+    function renderizarMachados(machados) {
 
-        contador.textContent = `${criaturas.length} registro(s)`;
+        const tabela = document.getElementById('tabela-machados');
 
-        if (criaturas.length === 0) {
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="7">Nenhum registro encontrado.</td>
-            </tr>`;
-          return;
-        }
+        document.getElementById('contador').textContent =
+            `${machados.length} machado(s) encontrado(s).`;
 
-        tbody.innerHTML = criaturas.map(c => `
-          <tr>
-            <td>${c.id_criatura}</td>
-            <td>${c.nome}</td>
-            <td>${c.localizacao}</td>
-            <td>${c.ecos}</td>
-            <td>${c.nome_fraqueza}</td>
-            <td>${c.nome_status}</td>
-            <td>
-              <button onclick="editarCriatura(${c.id_criatura})">Editar</button>
-              <button onclick="deletarCriatura(${c.id_criatura})">Deletar</button>
-            </td>
-          </tr>`).join('');
-      }
+        if (machados.length === 0) {
 
-      carregarCriaturas();
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="9">Nenhum machado encontrado.</td>
+                </tr>
+            `;
 
-      // PESQUISAR CRIATURAS
-
-      document.getElementById('form-pesquisa').addEventListener('submit', (evento) => {
-        evento.preventDefault();
-
-        const termo = document.getElementById('pesquisa').value.trim().toLowerCase();
-
-        const criaturasFiltradas = listaCriaturas.filter(c =>
-          c.nome.toLowerCase().includes(termo) ||
-          c.localizacao.toLowerCase().includes(termo)
-        );
-
-        renderizarCriaturas(criaturasFiltradas);
-      });
-
-      // LIMPAR PESQUISA
-
-      function limparPesquisa() {
-        document.getElementById('pesquisa').value = '';
-        renderizarCriaturas(listaCriaturas);
-      }
-
-      // EDITAR CRIATURA
-
-      function editarCriatura(id) {
-        const c = listaCriaturas.find(criatura => criatura.id_criatura == id);
-
-        if (!c) return;
-
-        document.getElementById('id_criatura').value = c.id_criatura;
-        document.getElementById('nome').value = c.nome;
-        document.getElementById('localizacao').value = c.localizacao;
-        document.getElementById('ecos').value = c.ecos;
-        document.getElementById('id_fraqueza').value = c.id_fraqueza;
-        document.getElementById('id_status').value = c.id_status;
-
-        document.getElementById('titulo-form').textContent = 'Editar criatura';
-
-        window.scrollTo(0, 0);
-      }
-
-      // DELETAR CRIATURA
-
-      async function deletarCriatura(id) {
-        if (!confirm('Deseja realmente deletar esta criatura?')) {
-          return;
+            return;
         }
 
-        const resposta = await fetch(`/api/bestiario/${id}`, {
-          method: "DELETE"
+        tabela.innerHTML = machados.map(m => {
+
+            const preco = m.preco == null
+                ? 'Não informado'
+                : Number(m.preco).toFixed(2);
+
+            return `
+                <tr>
+                    <td>${m.id_machado}</td>
+                    <td>${escaparHTML(m.nome_machado)}</td>
+                    <td>${escaparHTML(m.nome_categoria || 'Não informado')}</td>
+                    <td>${escaparHTML(m.nome_raridade || 'Não informado')}</td>
+                    <td>${preco}</td>
+                    <td>${escaparHTML(m.local_obtencao)}</td>
+                    <td>${escaparHTML(m.madeira_eficiencia)}</td>
+                    <td>${escaparHTML(m.descricao)}</td>
+
+                    <td>
+                        <button
+                            class="editar"
+                            onclick="editarMachado(${m.id_machado})">
+                            Editar
+                        </button>
+
+                        <button
+                            class="excluir"
+                            onclick="deletarMachado(${m.id_machado})">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+        }).join('');
+    }
+
+    // Pesquisar machados
+    document.getElementById('pesquisa').addEventListener('input', function () {
+
+        const termo = this.value.toLowerCase().trim();
+
+        const filtrados = listaMachados.filter(m => {
+
+            const texto = [
+                m.nome_machado,
+                m.nome_categoria,
+                m.nome_raridade,
+                m.local_obtencao,
+                m.madeira_eficiencia,
+                m.descricao
+            ].join(' ').toLowerCase();
+
+            return texto.includes(termo);
+
         });
 
-        if (resposta.ok) {
-          alert("Criatura excluída!");
-          carregarCriaturas();
-        } else {
-          alert("Erro ao excluir criatura.");
+        renderizarMachados(filtrados);
+    });
+
+    // Limpar pesquisa
+    function limparPesquisa() {
+
+        document.getElementById('pesquisa').value = '';
+
+        renderizarMachados(listaMachados);
+    }
+
+    // Limpar formulário
+    function limparFormulario() {
+
+        document.getElementById('form-machado').reset();
+
+        document.getElementById('id_machado').value = '';
+
+        document.getElementById('titulo-formulario').textContent =
+            'Cadastrar Machado';
+
+        document.getElementById('mensagem').textContent = '';
+    }
+
+    // Editar machado
+    function editarMachado(id) {
+
+        const machado = listaMachados.find(m => m.id_machado === id);
+
+        if (!machado) {
+            alert('Machado não encontrado.');
+            return;
         }
-      }
 
-      // CADASTRAR / ATUALIZAR CRIATURA
+        document.getElementById('id_machado').value = machado.id_machado;
+        document.getElementById('nome_machado').value = machado.nome_machado;
+        document.getElementById('id_categoria').value = machado.id_categoria;
+        document.getElementById('id_raridade').value = machado.id_raridade;
+        document.getElementById('preco').value = machado.preco ?? '';
+        document.getElementById('local_obtencao').value = machado.local_obtencao ?? '';
+        document.getElementById('madeira_eficiencia').value = machado.madeira_eficiencia ?? '';
+        document.getElementById('descricao').value = machado.descricao ?? '';
 
-      document.getElementById('form-criatura').addEventListener('submit', async (evento) => {
+        document.getElementById('titulo-formulario').textContent =
+            'Editar Machado';
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Excluir machado
+    async function deletarMachado(id) {
+
+        if (!confirm('Deseja realmente excluir este machado?')) {
+            return;
+        }
+
+        try {
+
+            const resultado = await requisicao(`/api/machados/${id}`, {
+                method: 'DELETE'
+            });
+
+            alert(resultado.mensagem);
+
+            await carregarMachados();
+
+        } catch (erro) {
+
+            alert('Erro ao excluir: ' + erro.message);
+
+        }
+    }
+
+    // Cadastrar ou atualizar machado
+    document.getElementById('form-machado').addEventListener('submit', async function (evento) {
+
         evento.preventDefault();
 
-        const id = document.getElementById('id_criatura').value;
+        const id = document.getElementById('id_machado').value;
 
-        const criatura = {
-          nome: document.getElementById('nome').value,
-          localizacao: document.getElementById('localizacao').value,
-          ecos: document.getElementById('ecos').value,
-          id_fraqueza: document.getElementById('id_fraqueza').value,
-          id_status: document.getElementById('id_status').value,
+        const dados = {
+            nome_machado: document.getElementById('nome_machado').value.trim(),
+            id_categoria: document.getElementById('id_categoria').value,
+            id_raridade: document.getElementById('id_raridade').value,
+            preco: document.getElementById('preco').value,
+            local_obtencao: document.getElementById('local_obtencao').value.trim(),
+            madeira_eficiencia: document.getElementById('madeira_eficiencia').value.trim(),
+            descricao: document.getElementById('descricao').value.trim()
         };
 
-        const metodo = id ? 'PUT' : 'POST';
-        const endereco = id ? '/api/bestiario/' + id : '/api/bestiario';
+        try {
 
-        const resposta = await fetch(endereco, {
-          method: metodo,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(criatura)
-        });
+            const resultado = await requisicao(
+                id ? `/api/machados/${id}` : '/api/machados',
+                {
+                    method: id ? 'PUT' : 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                }
+            );
 
-        const resultado = await resposta.json();
+            document.getElementById('mensagem').textContent =
+                resultado.mensagem;
 
-        document.getElementById('mensagem').textContent =
-          resultado.mensagem ?? resultado.erro;
+            limparFormulario();
+            limparPesquisa();
 
-        if (resposta.ok) {
-          document.getElementById('form-criatura').reset();
-          document.getElementById('id_criatura').value = '';
-          document.getElementById('titulo-form').textContent = 'Nova criatura';
+            await carregarMachados();
 
-          // Recarrega a lista e limpa a pesquisa
-          limparPesquisa();
-          carregarCriaturas();
+        } catch (erro) {
+
+            document.getElementById('mensagem').textContent =
+                'Erro: ' + erro.message;
+
+            console.error('Erro ao salvar machado:', erro);
         }
-      });
+    });
 
-    </script>
+    // Inicialização
+    async function iniciarAplicacao() {
 
-  </body>
+        try {
+
+            await carregarCategorias();
+            await carregarRaridades();
+            await carregarMachados();
+
+        } catch (erro) {
+
+            console.error('Erro ao inicializar aplicação:', erro);
+
+            document.getElementById('contador').textContent =
+                'Erro ao carregar os dados iniciais: ' + erro.message;
+        }
+    }
+
+    iniciarAplicacao();
+
+</script>
+
+</body>
 </html>
